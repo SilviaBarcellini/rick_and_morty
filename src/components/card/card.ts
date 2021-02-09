@@ -9,7 +9,7 @@ export function createCard({
 }) {
   return createElement("div", {
     className: "card",
-    children: [
+    childs: [
       createElement("img", {
         className: "card__portrait",
         src: imgSrc,
