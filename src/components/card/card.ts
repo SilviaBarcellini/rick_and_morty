@@ -7,27 +7,33 @@ export function createCard({
   species,
   lastKnownLocation,
 }) {
-  return createElement("div", {
+  return createElement("article", {
     className: "card",
     childs: [
       createElement("img", {
         className: "card__portrait",
         src: imgSrc,
+        alt: "",
       }),
-      createElement("h2", {
-        className: "card__name",
-        innerText: name,
-      }),
-      createElement("p", {
-        innerText: `${status === "Alive" ? "💚" : "❌"} - ${status}`,
-      }),
-      createElement("p", {
-        className: "card__species",
-        innerText: species,
-      }),
-      createElement("p", {
-        className: "card__last-known-location",
-        innerText: lastKnownLocation,
+      createElement("div", {
+        className: "card__info",
+        childs: [
+          createElement("h2", {
+            className: "info_name",
+            innerText: name,
+          }),
+          createElement("p", {
+            innerText: `${status === "Alive" ? "💚" : "❌"} - ${status}`,
+          }),
+          createElement("p", {
+            className: "card__species",
+            innerText: species,
+          }),
+          createElement("p", {
+            className: "card__last-known-location",
+            innerText: lastKnownLocation,
+          }),
+        ],
       }),
     ],
   });
