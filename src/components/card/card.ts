@@ -1,12 +1,6 @@
 import { createElement } from "../../utils/createElement";
 
-export function createCard({
-  imgSrc,
-  name,
-  status,
-  species,
-  lastKnownLocation,
-}) {
+export function createCard({ imgSrc, name, status, species, origin }) {
   return createElement("article", {
     className: "card",
     childs: [
@@ -30,8 +24,8 @@ export function createCard({
             innerText: species,
           }),
           createElement("p", {
-            className: "card__last-known-location",
-            innerText: lastKnownLocation,
+            className: "card__origin",
+            innerText: origin.name,
           }),
         ],
       }),

@@ -1,6 +1,7 @@
 import "./card.css";
 import { createCard } from "./card";
 import { createElement } from "../../utils/createElement";
+import { getCharacter, getCharacters } from "../../utils/api";
 
 export default {
   title: "Components/card",
@@ -13,7 +14,7 @@ export const Garblovian = () =>
     name: "Garblovian",
     status: "Alive",
     species: "Alien",
-    lastKnownLocation: "unknown",
+    origin: "unknown",
   });
 
 export const Todd_Crystal = () =>
@@ -22,7 +23,7 @@ export const Todd_Crystal = () =>
     name: "Todd Crystal",
     status: "Alive",
     species: "Alien",
-    lastKnownLocation: "Unity's Planet",
+    origin: "Unity's Planet",
   });
 
 export const Pencilvester = () =>
@@ -31,7 +32,7 @@ export const Pencilvester = () =>
     name: "Pencilvester",
     status: "dead",
     species: "Alien",
-    lastKnownLocation: "Earth (Replacement Dimension)",
+    origin: "Earth (Replacement Dimension)",
   });
 
 export const Flansian = () =>
@@ -40,7 +41,7 @@ export const Flansian = () =>
     name: "Flansian",
     status: "Alive",
     species: "Alien",
-    lastKnownLocation: "Planet Squanch",
+    origin: "Planet Squanch",
   });
 
 export const Multiple = () => {
@@ -85,3 +86,29 @@ export const Multiple = () => {
 
   return container;
 };
+
+export const CharacterFromAPI = (args, { loaded: { character } }) => {
+  return createCard(character);
+};
+
+CharacterFromAPI.loaders = [
+  async () => ({
+    character: await getCharacter(587),
+  }),
+];
+
+//third commit (import getCharacters, on top of getCharacter from  second commit !!)
+//organise the imported datas in a container
+export const CharactersFromAPI = (args, { loaded: { characters } }) => {
+  const container = createElement("div", {
+    className: "container",
+    childs: characters.map((character) => createCard(character)),
+  });
+  return container;
+};
+
+CharactersFromAPI.loaders = [
+  async () => ({
+    characters: await getCharacters(),
+  }),
+];
