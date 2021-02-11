@@ -1,7 +1,7 @@
 import "./card.css";
 import { createCard } from "./card";
 import { createElement } from "../../utils/createElement";
-import { getCharacter, getCharacters } from "../../utils/api";
+import { Character, getCharacter, getCharacters } from "../../utils/api";
 
 export default {
   title: "Components/card",
@@ -97,9 +97,43 @@ CharacterFromAPI.loaders = [
   }),
 ];
 
+//commit #5 API WITH FILTER
+//LOOK AT SCREENSHOTS 11.02 MORGEN!!!!!!!!
+export const CharactersFromAPIWithFilter = (
+  args,
+  { loaded: { characters } }
+) => {
+  const input = createElement("input", {
+    onchange: async () => {
+      const newCharacters = await getCharacters(input.value);
+      const newCards = newCharacters.map((character) => createCard(character));
+      characterContainer.innerHTML = "";
+      characterContainer.append(...newCards);
+    },
+  });
+
+  const characterContainer = createElement("div", {
+    className: "container",
+    childs: characters.map((character) => createCard(character)),
+  });
+
+  const container = createElement("div", {
+    className: "",
+    childs: [input, characterContainer],
+  });
+
+  return container;
+};
+
+CharactersFromAPIWithFilter.loaders = [
+  async () => ({
+    characters: await getCharacters(),
+  }),
+];
+
 //third commit (import getCharacters, on top of getCharacter from  second commit !!)
 //organise the imported datas in a container
-export const CharactersFromAPI = (args, { loaded: { characters } }) => {
+/* export const CharactersFromAPI = (args, { loaded: { characters } }) => {
   const container = createElement("div", {
     className: "container",
     childs: characters.map((character) => createCard(character)),
@@ -112,3 +146,39 @@ CharactersFromAPI.loaders = [
     characters: await getCharacters(),
   }),
 ];
+
+export const RandomCharacter = () => {
+  const randomButton = createElement("button", {
+    innerText: "Load random character",
+    onclick: async () => {
+ */ //randomCard‚();
+// Verify each step (alert, console.log)
+// 1) generate random character id
+/* const rdmChar = Math.floor(Math.random() * 670) + 1; */
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_number_between_two_values
+// 2) getCharacter from API
+/* const char = await getCharacter(rdmChar); */
+// 3) create card
+/* const charCard = createCard(char); */
+// 4) append card
+/* container.append(charCard); */
+// 5) make sure to only display one character
+// 6) feel awesome 🐱‍👤
+/*    },
+  });
+ */
+/*  const container = createElement("div", {
+    className: "container",
+    childs: [randomButton],
+  });
+  return container;
+}; */
+
+/* function randomCard(min, max) {
+  min = Math.ceil(0);
+  max = Math.floor(670);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+alert(randomCard(0, 670));
+ */

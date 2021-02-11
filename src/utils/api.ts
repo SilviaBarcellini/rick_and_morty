@@ -73,7 +73,7 @@ export async function getCharacter(id: number) {
       origin: {
         name: "Internet",
       },
-    };
+    } as Character;
   }
   //END commit 4.1
   const result = (await response.json()) as APICharacter;
@@ -90,8 +90,15 @@ export async function getCharacter(id: number) {
 }
 
 //continue commit 3!!!!!!!!
+/* OLD!! REPLACED BY COMMIT #5 
 export async function getCharacters() {
-  const response = await fetch(`https://rickandmortyapi.com/api/character/`);
+  const response = await fetch(`https://rickandmortyapi.com/api/character/`); */
+//COMMIT #5
+export async function getCharacters(name?: string) {
+  const response = await fetch(
+    `https://rickandmortyapi.com/api/character/${name ? `?name=${name}` : ""}`
+  );
+  //END COMMIT #5
   if (!response.ok) {
     //commit 4.1
     return []; //commit 4.1
